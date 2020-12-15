@@ -1,34 +1,30 @@
 ﻿using System;
 
-namespace Delegates_and_events
+namespace Events
 {
-   // public delegate void RestaurantsperfomanceHandler(int hours, WorkTpe worktype);
-    class Program 
+    class Program
     {
-       public delegate void RestaurantsperfomanceHandler(int hours, WorkTpe worktype);
-            static void Main(String[] args)
+        static void Main(string[] args)
         {
-            // Console.WriteLine("Hello World!");
-            RestaurantsperfomanceHandler de1 = new RestaurantsperfomanceHandler(Restaurantsperformed1);
-            RestaurantsperfomanceHandler de2 = new RestaurantsperfomanceHandler(Restaurantsperformed2);
-            de1 +=de2;
-            de1(5, WorkTpe.customerorders);
-            //de2(6, WorkTpe.respondorders);
+            //  Console.WriteLine("Hello World!");
+            EnterName ename = new EnterName();
+            ename.ev_BannedUser += WarningAlarm;
+            ename.User();
+            Console.Read();
         }
-        static void Restaurantsperformed1(int hoursdaily, WorkTpe worktype)
+        static void WarningAlarm(object sender, BannedUserEventArgs e)
         {
-            Console.WriteLine("Restaurantsperformed1 called"+hoursdaily.ToString());
+            Console.WriteLine("{0} Users Found. Sending Email to Administration.", e.Name);
+            Console.WriteLine("Email Sent.");
+            Console.WriteLine("Warning Alarm Started.");
+            Console.WriteLine("Press Ctrl + c to stop the alarm");
+            for (; ; )
+            {
+                Console.Beep();
+                System.Threading.Thread.Sleep(100);
+            }
         }
-        static void Restaurantsperformed2(int maxhors, WorkTpe worktype)
-        {
-            Console.WriteLine("Restaurantsperformed2 called"+maxhors.ToString());
-        }
-        public enum WorkTpe
-        {
-            customerorders,
-            respondorders,
-
-        }
-
     }
+
 }
+
